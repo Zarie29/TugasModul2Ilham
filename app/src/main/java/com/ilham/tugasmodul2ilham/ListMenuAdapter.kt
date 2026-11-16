@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class ListMenuAdapter(private val listMenu: ArrayList<Menu>): RecyclerView.Adapter<ListMenuAdapter.ListViewHolder>() {
@@ -21,13 +22,21 @@ class ListMenuAdapter(private val listMenu: ArrayList<Menu>): RecyclerView.Adapt
         holder: ListViewHolder,
         position: Int
     ) {
-        val (name,description,photo) = listMenu[position]
+        val (name, description, photo) = listMenu[position]
+
         holder.imgPhoto.setImageResource(photo)
         holder.tvName.text = name
         holder.tvDescription.text = description
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, DetailMenuActivity::class.java)
+
+            Toast.makeText(holder.itemView.context,"Menu yg kamu pilih "+listMenu[holder.adapterPosition].name,
+                Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(
+                holder.itemView.context,
+                DetailMenuActivity::class.java
+            )
 
             intent.putExtra("key_name", name)
             intent.putExtra("key_description", description)
